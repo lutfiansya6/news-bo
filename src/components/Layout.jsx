@@ -33,6 +33,9 @@ export default function Layout() {
           <Link to="/comments" className={isActive("/comments") ? "active" : ""}>
             Komentar
           </Link>
+          <Link to="/images" className={isActive("/images") ? "active" : ""}>
+            Gambar
+          </Link>
         </nav>
         <div className="sidebar-footer">
           <button onClick={handleLogout} className="logout-btn">

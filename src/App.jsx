@@ -9,6 +9,7 @@ import NewsForm from "./pages/NewsForm";
 import CategoryList from "./pages/CategoryList";
 import CategoryForm from "./pages/CategoryForm";
 import CommentModeration from "./pages/CommentModeration";
+import ImageManager from "./pages/ImageManager";
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="categories/new" element={<CategoryForm />} />
             <Route path="categories/:id/edit" element={<CategoryForm />} />
             <Route path="comments" element={<CommentModeration />} />
+            <Route path="images" element={<ImageManager />} />
           </Route>
         </Routes>
       </BrowserRouter>

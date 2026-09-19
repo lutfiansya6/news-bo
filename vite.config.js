@@ -5,6 +5,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: true,   // expose ke jaringan lokal (0.0.0.0)
     port: 5174,
     proxy: {
       '/api': {
@@ -12,5 +13,10 @@ export default defineConfig({
         changeOrigin: true,
       }
     }
+  },
+  preview: {
+    host: true,   // expose saat menjalankan production preview
+    port: 4173,
   }
 })
+

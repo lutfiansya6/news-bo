@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
-async function request(path, options = {}) {
+async function requestRaw(path, options = {}) {
   const token = localStorage.getItem("admin_token");
   const headers = {
     "Content-Type": "application/json",
@@ -19,12 +19,22 @@ async function request(path, options = {}) {
     throw new Error(message);
   }
 
-  const payload = await response.json();
-  return payload.data;
+  return response.json();
 }
 
-export function getNewsList() {
-  return request("/api/admin/news");
+// Returns only the `data` field — for single-item and mutation endpoints
+function request(path, options = {}) {
+  return requestRaw(path, options).then((payload) => payload.data);
+}
+
+/**
+ * Fetch paginated news list.
+ * @returns {Promise<{ data: News[], pagination: { page, limit, total, totalPages } }>}
+ */
+export function getNewsList(categoryId, page = 1, limit = 10) {
+  const params = new URLSearchParams({ page, limit });
+  if (categoryId) params.set("category", categoryId);
+  return requestRaw(`/api/admin/news?${params}`);
 }
 
 export function getNewsById(id) {
