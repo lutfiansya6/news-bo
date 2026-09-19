@@ -14,14 +14,14 @@ export default function Dashboard() {
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const [news, comments, categories] = await Promise.all([
-          getNewsList(),
+        const [newsRes, comments, categories] = await Promise.all([
+          getNewsList(null, 1, 1), // limit=1, hanya butuh pagination.total
           getComments(),
           getCategories(),
         ]);
 
         setStats({
-          totalNews: news.length,
+          totalNews: newsRes.pagination?.total ?? newsRes.data?.length ?? 0,
           totalCategories: categories.length,
           totalComments: comments.length,
         });
